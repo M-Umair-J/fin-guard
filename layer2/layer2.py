@@ -148,7 +148,7 @@ model_rl = PPO(
 )
 
 print("\nTraining PPO agent...")
-model_rl.learn(total_timesteps=100000)
+model_rl.learn(total_timesteps=300000)
 model_rl.save("outputs/layer2_ppo_model")
 print("RL model saved")
 

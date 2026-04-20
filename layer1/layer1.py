@@ -13,7 +13,7 @@ from xgboost import XGBClassifier
 import shap
 
 # ── 1. LOAD DATA ──────────────────────────────────────────────────────────────
-df = pd.read_csv('../datasets/creditcard.csv')
+df = pd.read_csv('datasets/creditcard.csv')
 print(df.shape)
 print(df['Class'].value_counts())
 
@@ -77,7 +77,7 @@ X_sample = X_test.sample(500, random_state=42)
 shap_values = explainer.shap_values(X_sample)
 
 shap.summary_plot(shap_values, X_sample, show=False)
-plt.savefig('../outputs/shap_summary.png', bbox_inches='tight', dpi=150)
+plt.savefig('outputs/shap_summary.png', bbox_inches='tight', dpi=150)
 plt.close()
 print("SHAP plot saved to shap_summary.png")
 
@@ -94,7 +94,7 @@ shap.waterfall_plot(
     ),
     show=False
 )
-plt.savefig('../outputs/shap_single_explanation.png', bbox_inches='tight', dpi=150)
+plt.savefig('outputs/shap_single_explanation.png', bbox_inches='tight', dpi=150)
 plt.close()
 print("Single explanation saved")
 
@@ -118,10 +118,10 @@ print(f"Caught by Layer 1:         {((preds_cs == 1) & (y_test == 1)).sum()}")
 print(f"Missed by Layer 1:         {len(missed)}")
 print(f"Uncertain zone (→ Layer 2): {len(uncertain)}")
 
-missed.to_csv('../outputs/layer1_misses.csv', index=False)
-uncertain.to_csv('../outputs/layer2_candidates.csv', index=False)
+missed.to_csv('outputs/layer1_misses.csv', index=False)
+uncertain.to_csv('outputs/layer2_candidates.csv', index=False)
 
 print("\nMissed fraud probability scores:")
 print(missed['fraud_prob'].values)
-joblib.dump(model_cs, '../outputs/layer1_model.pkl')
+joblib.dump(model_cs, 'outputs/layer1_model.pkl')
 print("Model saved")
