@@ -9,6 +9,7 @@ summary = {
         "fraud_caught": 72,
         "fraud_total": 80,
         "missed": 8,
+        "smote_roc_auc": 0.9857,
         "note": "Cost-sensitive XGBoost outperforms SMOTE (ROC-AUC 0.9857)"
     },
     "layer2": {
@@ -36,6 +37,24 @@ summary = {
         "routing_threshold_low": 0.01,
         "routing_threshold_high": 0.80,
         "note": "6 of 8 hard cases fall below routing threshold (prob < 0.01) and are approved by Layer 1 — Layer 2 value demonstrated in standalone evaluation"
+    },
+    "layer3_federated": {
+        "institution_split": "60/40 on ULB dataset",
+        "federation_rounds": 3,
+        "timesteps_per_round": 100000,
+        "dp_epsilon": 1.0,
+        "dp_sensitivity": 0.1,
+        "dp_mechanism": "Gaussian mechanism — noise scale = sensitivity / epsilon = 0.1",
+        "aggregation": "Weighted FedAvg (60/40 proportional to dataset size)",
+        "round_results": [
+            {"round": 1, "recall": 0.7917},
+            {"round": 2, "recall": 0.8333},
+            {"round": 3, "recall": 0.8333}
+        ],
+        "baseline_recall": 0.9375,
+        "final_federated_recall": 0.8333,
+        "recall_change": -0.1042,
+        "note": "10.4% recall reduction under strict DP (epsilon=1.0) demonstrates classic privacy-utility tradeoff. Federation converges by round 2, showing stable cross-institution learning. Relaxing to epsilon=2.0 expected to recover performance while maintaining formal privacy guarantees."
     }
 }
 
